@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../config/site';
+import ObfuscatedContact from '../../components/ObfuscatedContact.astro';
+import Icon from '../../components/icons/Icon.astro';
+
+const mapAddress = `${siteConfig.address.line1}, ${siteConfig.address.city}, ${siteConfig.address.state} ${siteConfig.address.zip}`;
+const mapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(mapAddress)}&output=embed`;
+const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(mapAddress)}`;
+---
+
+<BaseLayout
+  title="Contact — T.E.T. Mfg. Co., Inc."
+  description="Contact T.E.T. Mfg. Co., Inc. at 2 Old Indian Trail, Middlefield, CT 06455. Email and phone for quotes and precision machining."
+  current="/contact/"
+>
+  <section class="industrial-hero">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <span class="mb-4 flex h-12 w-12 items-center justify-center rounded-sm border border-industrial-steel/40 bg-industrial-steel/20 text-industrial-light/90" aria-hidden="true">
+        <Icon name="envelope" class="w-7 h-7" />
+      </span>
+      <h1 class="text-3xl font-bold uppercase tracking-tight sm:text-4xl">Contact</h1>
+      <p class="mt-4 max-w-2xl font-medium text-industrial-light/90">
+        Get in touch for quotes, questions, or to discuss your next project.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+    <div class="flex items-center gap-3">
+      <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-industrial-steel/30 bg-industrial-steel/10 text-industrial-steel" aria-hidden="true">
+        <Icon name="map-pin" class="w-5 h-5" />
+      </span>
+      <h2 class="text-xl font-semibold text-industrial-dark">{siteConfig.name}</h2>
+    </div>
+    <address class="mt-4 not-italic text-industrial-dark/80">
+      <p>{siteConfig.address.line1}</p>
+      <p>{siteConfig.address.city}, {siteConfig.address.state} {siteConfig.address.zip}</p>
+    </address>
+    <div class="mt-6">
+      <ObfuscatedContact showEmail={true} showPhone={true} />
+    </div>
+    <div class="mt-10">
+      <div class="mb-3 flex items-center justify-between gap-4">
+        <h3 class="sr-only">Map</h3>
+        <a
+          href={directionsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm font-semibold uppercase tracking-wide text-industrial-steel hover:text-accent"
+        >
+          Get directions →
+        </a>
+      </div>
+      <div class="aspect-video max-w-3xl overflow-hidden rounded-sm border border-industrial-gray/25 shadow-plate">
+        <iframe
+          title={`Map showing T.E.T. Mfg. Co., Inc. location at ${mapAddress}`}
+          src={mapEmbedUrl}
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

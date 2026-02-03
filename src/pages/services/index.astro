@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/icons/Icon.astro';
+---
+
+<BaseLayout
+  title="Services — T.E.T. Mfg. Co., Inc."
+  description="Production runs, prototyping, custom one-off jobs. Flexible lead times, ERP-driven cost and schedule tracking. Precision manufacturing in Middlefield, CT."
+  current="/services/"
+>
+  <section class="industrial-hero">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <span class="mb-4 flex h-12 w-12 items-center justify-center rounded-sm border border-industrial-steel/40 bg-industrial-steel/20 text-industrial-light/90" aria-hidden="true">
+        <Icon name="gear" class="w-7 h-7" />
+      </span>
+      <h1 class="text-3xl font-bold uppercase tracking-tight sm:text-4xl">Services</h1>
+      <p class="mt-4 max-w-2xl font-medium text-industrial-light/90">
+        From prototypes to production runs to one-off jobs—we focus on flexibility, lead times, and keeping your project on time and on budget.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <article class="industrial-card-with-icon">
+        <div class="icon-wrap">
+          <Icon name="mill" class="w-6 h-6" />
+        </div>
+        <h2 class="text-xl font-bold tracking-tight text-industrial-dark">Production Runs</h2>
+        <p class="mt-2 text-industrial-dark/80">
+          Repeat orders and volume work with consistent quality. Our ERP tracks schedules and costs so we can give you reliable delivery dates and pricing.
+        </p>
+      </article>
+      <article class="industrial-card-with-icon">
+        <div class="icon-wrap">
+          <Icon name="wrench" class="w-6 h-6" />
+        </div>
+        <h2 class="text-xl font-bold tracking-tight text-industrial-dark">Prototyping</h2>
+        <p class="mt-2 text-industrial-dark/80">
+          Fast-turn prototypes to validate design and process before committing to production. Same quality standards and documentation as production runs.
+        </p>
+      </article>
+      <article class="industrial-card-with-icon">
+        <div class="icon-wrap">
+          <Icon name="clipboard" class="w-6 h-6" />
+        </div>
+        <h2 class="text-xl font-bold tracking-tight text-industrial-dark">One-Off & Custom Jobs</h2>
+        <p class="mt-2 text-industrial-dark/80">
+          Single parts, tooling, fixtures, or short runs. We don’t shy away from “one of” work—every job gets the same attention to quality and schedule.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="industrial-section-alt">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <h2 class="section-heading-with-icon text-2xl font-bold uppercase tracking-tight text-industrial-dark">
+        <span class="icon-wrap" aria-hidden="true"><Icon name="clipboard" class="w-6 h-6" /></span>
+        On Time and On Budget
+      </h2>
+      <p class="mt-4 max-w-3xl text-industrial-dark/80">
+        Our ERP (Enterprise Resource Planning) system tracks costs, schedules, and capacity in near real time. That means better decisions and fewer surprises—so you get parts on time and on budget. We can discuss lead times and volumes when you reach out.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+    <div class="rounded-sm border-2 border-industrial-steel/40 bg-industrial-steel/5 p-8 text-center shadow-plate">
+      <span class="inline-flex h-12 w-12 items-center justify-center rounded-sm border border-industrial-steel/40 bg-white/80 text-industrial-steel" aria-hidden="true">
+        <Icon name="contact" class="w-6 h-6" />
+      </span>
+      <p class="mt-4 text-lg font-medium text-industrial-dark">Need a quote or have a question?</p>
+      <a href="/contact/" class="industrial-btn mt-4">
+        Contact us
+      </a>
+    </div>
+  </section>
+</BaseLayout>

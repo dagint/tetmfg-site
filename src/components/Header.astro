@@ -1,0 +1,86 @@
+---
+interface Props {
+  current?: string;
+}
+const { current } = Astro.props;
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/facilities/', label: 'Facilities' },
+  { href: '/services/', label: 'Services' },
+  { href: '/quality/', label: 'Quality' },
+  { href: '/contact/', label: 'Contact' },
+];
+---
+
+<header class="sticky top-0 z-50 border-b-2 border-industrial-gray/30 bg-industrial-white/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-industrial-white/90">
+  <div class="h-1 w-full bg-accent" aria-hidden="true"></div>
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
+    <a href="/" class="text-lg font-bold tracking-tight text-industrial-dark hover:text-accent focus:outline-none focus:ring-2 focus:ring-industrial-steel">
+      T.E.T. Mfg. Co., Inc.
+    </a>
+    <nav class="flex items-center gap-1 sm:gap-2" aria-label="Main navigation">
+      <button
+        type="button"
+        class="inline-flex items-center justify-center rounded-md p-2 text-industrial-dark hover:bg-industrial-light focus:outline-none focus:ring-2 focus:ring-industrial-steel md:hidden"
+        aria-expanded="false"
+        aria-controls="main-nav"
+        id="nav-toggle"
+      >
+        <span class="sr-only">Open menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      <ul id="main-nav" class="hidden gap-1 md:flex md:gap-2" role="list">
+        {navItems.map(({ href, label }) => {
+          const isCurrent = current === href || (current === undefined && href === '/');
+          return (
+            <li>
+              <a
+                href={href}
+                class={`block rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                  isCurrent
+                    ? 'bg-industrial-steel/10 text-industrial-steel'
+                    : 'text-industrial-dark hover:bg-accent-muted hover:text-accent'
+                }`}
+              >
+                {label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  </div>
+  <div id="nav-dropdown" class="hidden border-t border-industrial-gray/20 bg-industrial-white px-4 py-2 md:hidden">
+    <ul class="flex flex-col gap-1" role="list">
+      {navItems.map(({ href, label }) => {
+        const isCurrent = current === href || (current === undefined && href === '/');
+        return (
+          <li>
+            <a
+              href={href}
+              class={`block rounded-md px-3 py-2 text-sm font-medium ${
+                isCurrent ? 'bg-industrial-steel/10 text-industrial-steel' : 'text-industrial-dark hover:bg-industrial-light'
+              }`}
+            >
+              {label}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const dropdown = document.getElementById('nav-dropdown');
+  const nav = document.getElementById('main-nav');
+  if (toggle && dropdown && nav) {
+    toggle.addEventListener('click', () => {
+      const open = dropdown.classList.toggle('hidden');
+      toggle.setAttribute('aria-expanded', String(!open));
+    });
+  }
+</script>

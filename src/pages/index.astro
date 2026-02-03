@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/icons/Icon.astro';
+---
+
+<BaseLayout
+  title="T.E.T. Mfg. Co., Inc. — Quality Parts. On Time. On Budget."
+  description="Precision manufacturing job shop in Middlefield, CT. Production runs, prototyping, one-off jobs. Milling, drilling, turning, large capacity. Zeiss CMM, ERP-driven schedules."
+  current="/"
+>
+  <section class="industrial-hero">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+      <div class="mb-6 flex justify-start">
+        <span class="flex h-14 w-14 items-center justify-center rounded-sm border border-industrial-steel/40 bg-industrial-steel/20 text-industrial-light/90" aria-hidden="true">
+          <Icon name="mill" class="w-8 h-8" />
+        </span>
+      </div>
+      <h1 class="text-3xl font-bold uppercase tracking-tight sm:text-4xl md:text-5xl">
+        Quality Parts. On Time. On Budget.
+      </h1>
+      <p class="mt-4 max-w-2xl text-lg font-medium text-industrial-light/90">
+        We are a precision manufacturing job shop that doesn’t take chances with your project. Many shops promise quality parts on time and on budget—we deliver.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+    <p class="max-w-3xl text-lg text-industrial-dark/90">
+      At T.E.T. Manufacturing we pride ourselves on our reputation. Our facilities can mill, drill, or turn nearly anything you give us. With our Bullard Cutmaster Vertical Turning Center we handle stock up to 54″ diameter. An extensive network of subcontractors lets us offer value-added services including plating, grinding, and painting.
+    </p>
+  </section>
+
+  <section class="industrial-section-alt">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <h2 class="sr-only">What we offer</h2>
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="industrial-card-with-icon">
+          <div class="icon-wrap">
+            <Icon name="gear" class="w-6 h-6" />
+          </div>
+          <h3 class="text-lg font-bold tracking-tight text-industrial-dark">Services</h3>
+          <p class="mt-2 text-industrial-dark/80">
+            Production runs, prototyping, or one-off jobs—we tackle them all. Flexible lead times and a focus on your schedule and budget.
+          </p>
+          <a href="/services/" class="mt-3 inline-block text-sm font-semibold uppercase tracking-wide text-industrial-steel hover:text-accent hover:underline">
+            View services →
+          </a>
+        </article>
+        <article class="industrial-card-with-icon">
+          <div class="icon-wrap">
+            <Icon name="facility" class="w-6 h-6" />
+          </div>
+          <h3 class="text-lg font-bold tracking-tight text-industrial-dark">Facilities & Capabilities</h3>
+          <p class="mt-2 text-industrial-dark/80">
+            Milling, drilling, turning. Large diameters up to 54″ with our Bullard Cutmaster VTL. Subcontracted plating, grinding, and painting.
+          </p>
+          <a href="/facilities/" class="mt-3 inline-block text-sm font-semibold uppercase tracking-wide text-industrial-steel hover:text-accent hover:underline">
+            View facilities →
+          </a>
+        </article>
+        <article class="industrial-card-with-icon">
+          <div class="icon-wrap">
+            <Icon name="quality" class="w-6 h-6" />
+          </div>
+          <h3 class="text-lg font-bold tracking-tight text-industrial-dark">Quality & ERP</h3>
+          <p class="mt-2 text-industrial-dark/80">
+            Advanced ERP tracks costs and schedules in near real time. Quality lab with Zeiss CMM—your parts are right when they leave our plant.
+          </p>
+          <a href="/quality/" class="mt-3 inline-block text-sm font-semibold uppercase tracking-wide text-industrial-steel hover:text-accent hover:underline">
+            View quality →
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+    <div class="rounded-sm border-2 border-industrial-steel/40 bg-industrial-steel/5 p-8 text-center shadow-plate">
+      <span class="inline-flex h-12 w-12 items-center justify-center rounded-sm border border-industrial-steel/40 bg-white/80 text-industrial-steel" aria-hidden="true">
+        <Icon name="contact" class="w-6 h-6" />
+      </span>
+      <h2 class="mt-4 text-xl font-bold uppercase tracking-tight text-industrial-dark">Ready to get a quote?</h2>
+      <p class="mt-2 text-industrial-dark/80">
+        Contact us for production runs, prototypes, or custom one-off jobs.
+      </p>
+      <a href="/contact/" class="industrial-btn mt-4">
+        Contact us
+      </a>
+    </div>
+  </section>
+</BaseLayout>

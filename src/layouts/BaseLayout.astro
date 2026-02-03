@@ -1,0 +1,71 @@
+---
+import BaseLayoutWrapper from '../components/BaseLayoutWrapper.astro';
+import { siteConfig } from '../config/site';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  current?: string;
+  /** Optional: full URL to image for social sharing (e.g. /og-image.svg). Falls back to og-image.svg. */
+  image?: string;
+}
+const { title, description = 'T.E.T. Mfg. Co., Inc. — Quality machined parts, on time and on budget. Precision manufacturing job shop in Middlefield, CT.', current, image } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = image ? new URL(image, Astro.site).toString() : new URL('/og-image.svg', Astro.site).toString();
+
+const localBusinessJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: siteConfig.name,
+  description: siteConfig.tagline,
+  url: Astro.site?.toString() ?? 'https://tetmfg.com',
+  telephone: siteConfig.phonePlaceholder,
+  email: `${siteConfig.emailUser}@${siteConfig.emailDomain}`,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: siteConfig.address.line1,
+    addressLocality: siteConfig.address.city,
+    addressRegion: siteConfig.address.state,
+    postalCode: siteConfig.address.zip,
+  },
+};
+
+const cfAnalyticsToken = typeof process !== 'undefined' && process.env.CLOUDFLARE_ANALYTICS_TOKEN ? process.env.CLOUDFLARE_ANALYTICS_TOKEN : '';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="T.E.T. Mfg. Co., Inc." />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessJsonLd)} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    {cfAnalyticsToken && (
+      <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: cfAnalyticsToken })} />
+    )}
+    <BaseLayoutWrapper title={title} description={description} current={current}>
+      <slot />
+    </BaseLayoutWrapper>
+  </body>
+</html>

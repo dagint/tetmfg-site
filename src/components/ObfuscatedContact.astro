@@ -1,0 +1,64 @@
+---
+/**
+ * Renders email and phone by assembling at runtime to reduce scraping.
+ * Pass emailUser + '@' + emailDomain and phone from site config.
+ *
+ * Alternative: HTML-entity encoded email (no JS) e.g. in a comment or static block:
+ *   <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#116;&#101;&#116;&#109;&#102;&#103;&#46;&#99;&#111;&#109;">&#105;&#110;&#102;&#111;&#64;&#116;&#101;&#116;&#109;&#102;&#103;&#46;&#99;&#111;&#109;</a>
+ * Decodes to mailto:info@tetmfg.com. We use the JS-assembled version in the UI by default.
+ */
+import { siteConfig } from '../config/site';
+
+interface Props {
+  /** Show email link (assembled as user@domain) */
+  showEmail?: boolean;
+  /** Show phone (use siteConfig.phonePlaceholder or replace with real) */
+  showPhone?: boolean;
+  /** Optional class for wrapper */
+  class?: string;
+}
+const { showEmail = true, showPhone = true, class: className = '' } = Astro.props;
+const user = siteConfig.emailUser;
+const domain = siteConfig.emailDomain;
+const phone = siteConfig.phonePlaceholder;
+---
+
+<div class:list={['flex flex-wrap items-center gap-x-4 gap-y-2 text-sm', className]}>
+  {showPhone && (
+    <span id="contact-phone" class="font-medium text-industrial-dark" data-parts={phone}>
+      {/* Rendered by script below */}
+      <span class="opacity-0" aria-hidden="true">—</span>
+    </span>
+  )}
+  {showEmail && (
+    <a
+      id="contact-email"
+      href="#"
+      class="font-medium text-industrial-steel underline decoration-industrial-steel/40 hover:decoration-industrial-steel"
+      data-user={user}
+      data-domain={domain}
+      rel="noopener noreferrer"
+    >
+      {/* Rendered by script below */}
+      <span class="opacity-0" aria-hidden="true">—</span>
+    </a>
+  )}
+</div>
+
+<script>
+  (function () {
+    const phoneEl = document.getElementById('contact-phone');
+    const emailEl = document.getElementById('contact-email');
+    if (phoneEl && phoneEl.dataset.parts) {
+      phoneEl.textContent = phoneEl.dataset.parts;
+      phoneEl.removeAttribute('data-parts');
+    }
+    if (emailEl && emailEl.dataset.user && emailEl.dataset.domain) {
+      const addr = emailEl.dataset.user + '\u0040' + emailEl.dataset.domain;
+      emailEl.textContent = addr;
+      emailEl.href = 'mailto:' + addr;
+      emailEl.removeAttribute('data-user');
+      emailEl.removeAttribute('data-domain');
+    }
+  })();
+</script>

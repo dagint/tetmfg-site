@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/icons/Icon.astro';
+---
+
+<BaseLayout
+  title="Quality — T.E.T. Mfg. Co., Inc."
+  description="Quality department with Zeiss CMM and advanced inspection. Parts right when they leave our plant. ERP integration for traceability and consistency."
+  current="/quality/"
+>
+  <section class="industrial-hero">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <span class="mb-4 flex h-12 w-12 items-center justify-center rounded-sm border border-industrial-steel/40 bg-industrial-steel/20 text-industrial-light/90" aria-hidden="true">
+        <Icon name="quality" class="w-7 h-7" />
+      </span>
+      <h1 class="text-3xl font-bold uppercase tracking-tight sm:text-4xl">Quality</h1>
+      <p class="mt-4 max-w-2xl font-medium text-industrial-light/90">
+        Quality is key. We promise your parts will be right when they leave our plant—backed by a dedicated quality department and modern inspection equipment.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+    <h2 class="section-heading-with-icon text-2xl font-bold uppercase tracking-tight text-industrial-dark">
+      <span class="icon-wrap" aria-hidden="true"><Icon name="caliper" class="w-6 h-6" /></span>
+      Inspection & Measurement
+    </h2>
+    <p class="mt-4 max-w-3xl text-industrial-dark/80">
+      Our quality department is equipped with the latest in measuring technology, including a <strong>Zeiss CMM</strong> (coordinate measuring machine). We maintain a complete inspection facility so we can verify dimensions, geometry, and tolerances before parts ship.
+    </p>
+    <ul class="mt-6 list-inside list-disc space-y-2 text-industrial-dark/80">
+      <li>Zeiss coordinate measuring machine (CMM)</li>
+      <li>Brown & Sharpe Micro-Hite precision measurement</li>
+      <li>First-article and in-process inspection</li>
+    </ul>
+  </section>
+
+  <section class="industrial-section-alt">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <h2 class="section-heading-with-icon text-2xl font-bold uppercase tracking-tight text-industrial-dark">
+        <span class="icon-wrap" aria-hidden="true"><Icon name="clipboard" class="w-6 h-6" /></span>
+        Quality & ERP Integration
+      </h2>
+      <p class="mt-4 max-w-3xl text-industrial-dark/80">
+        Quality control is integrated with our ERP system for traceability and consistency. Job travelers, inspection results, and revision control stay aligned so we can deliver the same quality run after run and provide documentation when you need it.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+    <div class="rounded-sm border-2 border-industrial-steel/40 bg-industrial-steel/5 p-8 shadow-plate">
+      <span class="inline-flex h-12 w-12 items-center justify-center rounded-sm border border-industrial-steel/40 bg-white/80 text-industrial-steel" aria-hidden="true">
+        <Icon name="quote" class="w-6 h-6" />
+      </span>
+      <p class="mt-4 text-lg font-bold tracking-tight text-industrial-dark">
+        We don’t take chances with your project. When parts leave our plant, they’re right.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

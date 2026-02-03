@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg-industrial-white text-industrial-dark antialiased;
+    background-image: linear-gradient(to right, rgb(53 67 86 / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(53 67 86 / 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+}
+
+@layer components {
+  /* Industrial card: steel left border, plate shadow, slightly sharp corners */
+  .industrial-card {
+    @apply border border-industrial-gray/25 bg-white;
+    @apply border-l-4 border-l-industrial-steel;
+    @apply shadow-plate transition-shadow;
+    @apply rounded-sm p-6;
+  }
+  .industrial-card:hover {
+    @apply shadow-plate-hover;
+  }
+  /* Page hero: bottom bar uses accent for a touch of warmth */
+  .industrial-hero {
+    @apply border-b-4 border-b-accent/80 bg-industrial-dark text-industrial-light;
+    @apply bg-grid-industrial bg-grid-24;
+  }
+  /* CTA button: chunky, uppercase, industrial */
+  .industrial-btn {
+    @apply inline-block rounded-sm border-2 border-industrial-steel bg-industrial-steel px-5 py-2.5 font-semibold uppercase tracking-wider text-white;
+    @apply shadow-plate transition-colors;
+    @apply hover:bg-accent hover:border-accent;
+    @apply focus:outline-none focus:ring-2 focus:ring-industrial-steel focus:ring-offset-2;
+  }
+  /* Alternating section with subtle stripe */
+  .industrial-section-alt {
+    @apply border-t border-industrial-gray/20 bg-industrial-light/40 bg-stripes-industrial;
+  }
+  /* Card with icon above title — use with industrial-card */
+  .industrial-card-with-icon {
+    @apply industrial-card;
+  }
+  .industrial-card-with-icon .icon-wrap {
+    @apply mb-4 flex h-12 w-12 items-center justify-center rounded-sm border border-industrial-steel/30 bg-industrial-steel/10 text-industrial-steel;
+  }
+  /* Section heading with icon */
+  .section-heading-with-icon {
+    @apply flex items-center gap-3;
+  }
+  .section-heading-with-icon .icon-wrap {
+    @apply flex h-10 w-10 shrink-0 items-center justify-center text-industrial-steel;
+  }
+  /* Skip link: off-screen until focused (keyboard/screen reader) */
+  .skip-link {
+    @apply sr-only rounded bg-industrial-dark px-3 py-2 text-white outline-none ring-2 ring-accent focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:m-0 focus:block focus:h-auto focus:w-auto focus:p-3 focus:overflow-visible;
+  }
+}
