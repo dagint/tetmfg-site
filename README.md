@@ -53,6 +53,7 @@ To keep phone, email, and form URL **out of the repository**, set these in Cloud
 - **Secrets** (encrypted): Use for `TET_PHONE`. In the dashboard: **Settings → Environment variables** → **Encrypt** when adding.
 - **Production vs Preview**: Set variables for **Production** and optionally for **Preview**.
 - **Local dev:** Copy `.env.example` to `.env` and fill in (do not commit `.env`). Fallbacks in `src/config/site.ts` allow the site to build without env set.
+- **Syncing env to Cloudflare:** The `npm run sync-env` script pushes variables from `.env` and `.env.local` to Cloudflare Pages. Put **local-only** values in `.env.local` (do not commit): `CLOUDFLARE_ACCOUNT_ID` (your Cloudflare account ID) and `CLOUDFLARE_API_TOKEN` (token with Pages:Edit). Those two are never sent to Cloudflare; only the rest are synced. See `.env.example` for a template.
 
 ### Before you go live
 
@@ -189,6 +190,7 @@ Sensitive values (phone, email parts) are read from **environment variables** at
 - Email and phone are still assembled client-side in the browser to reduce scraping.
 - External links use `rel="noopener noreferrer"`.
 - No secrets committed; use Cloudflare **Secrets** (encrypted env vars) for production.
+- **Headers:** `public/_headers` sets security headers (X-Frame-Options, X-Content-Type-Options, Referrer-Policy) and cache rules for Cloudflare Pages.
 
 ## SEO
 

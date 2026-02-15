@@ -1,21 +1,28 @@
 #!/bin/bash
 # Sync .env variables to Cloudflare Pages
-# Usage: CLOUDFLARE_API_TOKEN=your_token ./sync-env.sh
+# Requires: CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in .env.local (or export before running)
+# Usage: ./scripts/sync-env.sh
 
 set -e
 
-ACCOUNT_ID="9d1ece4e51911b8932e654eb8b000f4d"
 PROJECT_NAME="tetmfg-site"
 ENV_FILE=".env"
 
+# Load .env then .env.local (local overrides) so CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN are available
+if [ -f "$ENV_FILE" ]; then set -a; source "$ENV_FILE"; set +a; fi
+if [ -f .env.local ]; then set -a; source .env.local; set +a; fi
+
 if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
-  echo "❌ Error: CLOUDFLARE_API_TOKEN environment variable not set"
-  echo ""
-  echo "Get your API token:"
-  echo "1. Visit: https://dash.cloudflare.com/profile/api-tokens"
-  echo "2. Create a token with 'Cloudflare Pages:Edit' permission"
-  echo "3. Run: CLOUDFLARE_API_TOKEN=your_token ./sync-env.sh"
-  echo ""
+  echo "❌ Error: CLOUDFLARE_API_TOKEN not set"
+  echo "Add it to .env.local or run: CLOUDFLARE_API_TOKEN=your_token ./scripts/sync-env.sh"
+  echo "Get a token: https://dash.cloudflare.com/profile/api-tokens (Pages:Edit)"
+  exit 1
+fi
+
+if [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+  echo "❌ Error: CLOUDFLARE_ACCOUNT_ID not set"
+  echo "Add CLOUDFLARE_ACCOUNT_ID=your_account_id to .env.local (do not commit)."
+  echo "Find it in Cloudflare Dashboard → Overview (right sidebar)."
   exit 1
 fi
 
@@ -23,6 +30,8 @@ if [ ! -f "$ENV_FILE" ]; then
   echo "❌ Error: $ENV_FILE file not found"
   exit 1
 fi
+
+ACCOUNT_ID="$CLOUDFLARE_ACCOUNT_ID"
 
 echo "🔄 Syncing environment variables to Cloudflare Pages..."
 echo ""
