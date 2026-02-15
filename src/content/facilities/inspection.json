@@ -1,0 +1,10 @@
+{
+  "category": "Inspection",
+  "icon": "caliper",
+  "order": 7,
+  "description": "Complete inspection facility",
+  "items": [
+    "2002 ZEISS 28/40/20 C99/II coordinate measuring machine",
+    "(2) Brown & Sharpe Micro-Hites"
+  ]
+}

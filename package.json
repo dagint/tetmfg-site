@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "sync-env": "node scripts/sync-env-to-cloudflare.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.0.0",
