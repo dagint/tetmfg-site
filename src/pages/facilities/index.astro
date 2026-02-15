@@ -8,9 +8,14 @@ const sortedFacilities = facilities.sort((a, b) => a.data.order - b.data.order);
 ---
 
 <BaseLayout
-  title="Facilities — T.E.T. Mfg. Co., Inc."
-  description={'Full facilities listing: CNC milling, turning, Bullard Cutmaster VTL, surface grinding, lathes, Bridgeports, cut-off, inspection (Zeiss CMM), design. Middlefield, CT.'}
+  title="CNC Equipment & Facilities — Mori Seiki, Okuma, Zeiss CMM | T.E.T. Mfg."
+  description="Modern 10,000 sq ft manufacturing facility. CNC milling (5-axis Mori Seiki, Okuma), CNC turning (Y-axis, live tooling), Bullard VTL, Zeiss CMM inspection. Middlefield, Connecticut."
   current="/facilities/"
+  pageType="facilities"
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Facilities', url: '/facilities/' }
+  ]}
 >
   <section class="industrial-hero">
     <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">

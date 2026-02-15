@@ -8,9 +8,14 @@ const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
 ---
 
 <BaseLayout
-  title="Services — T.E.T. Mfg. Co., Inc."
-  description="Production runs, prototyping, custom one-off jobs. Flexible lead times, ERP-driven cost and schedule tracking. Precision manufacturing in Middlefield, CT."
+  title="CNC Machining Services — Production, Prototyping, Custom Jobs | T.E.T. Mfg."
+  description="CNC machining services: production runs, rapid prototyping, custom one-off jobs. 5-axis milling, large diameter turning up to 60″. ERP-tracked schedules. Connecticut job shop."
   current="/services/"
+  pageType="services"
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/services/' }
+  ]}
 >
   <section class="industrial-hero">
     <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">

@@ -1,5 +1,6 @@
 ---
 import BaseLayoutWrapper from '../components/BaseLayoutWrapper.astro';
+import SEOSchemas from '../components/SEOSchemas.astro';
 import { siteConfig } from '../config/site';
 import '../styles/global.css';
 
@@ -9,27 +10,35 @@ interface Props {
   current?: string;
   /** Optional: full URL to image for social sharing (e.g. /og-image.svg). Falls back to og-image.svg. */
   image?: string;
+  /** Optional: page type for enhanced schemas */
+  pageType?: 'home' | 'services' | 'facilities' | 'quality' | 'contact';
+  /** Optional: breadcrumbs for SEO */
+  breadcrumbs?: Array<{ name: string; url: string }>;
 }
-const { title, description = 'T.E.T. Mfg. Co., Inc. — Quality machined parts, on time and on budget. Precision manufacturing job shop in Middlefield, CT.', current, image } = Astro.props;
+const {
+  title,
+  description = 'T.E.T. Mfg. Co., Inc. — Precision CNC machining, milling, and turning. Large diameter capability up to 60″. Serving aerospace, energy, and elevator industries in Connecticut.',
+  current,
+  image,
+  pageType = 'home',
+  breadcrumbs
+} = Astro.props;
+
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImage = image ? new URL(image, Astro.site).toString() : new URL('/og-image.svg', Astro.site).toString();
 
-const localBusinessJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  name: siteConfig.name,
-  description: siteConfig.tagline,
-  url: Astro.site?.toString() ?? 'https://tetmfg.com',
-  telephone: siteConfig.phonePlaceholder,
-  email: `${siteConfig.emailUser}@${siteConfig.emailDomain}`,
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: siteConfig.address.line1,
-    addressLocality: siteConfig.address.city,
-    addressRegion: siteConfig.address.state,
-    postalCode: siteConfig.address.zip,
-  },
-};
+// Determine page-specific keywords
+const keywords = pageType === 'home'
+  ? 'CNC machining, precision manufacturing, CNC milling, CNC turning, large diameter machining, aerospace manufacturing, Connecticut machining, job shop, prototype machining'
+  : pageType === 'services'
+  ? 'manufacturing services, production runs, prototyping, custom machining, one-off jobs, CNC services, Connecticut'
+  : pageType === 'facilities'
+  ? 'CNC equipment, milling machines, turning centers, Mori Seiki, Okuma, manufacturing facility, Middlefield CT'
+  : pageType === 'quality'
+  ? 'quality control, Zeiss CMM, inspection, precision measurement, manufacturing quality, ERP system'
+  : pageType === 'contact'
+  ? 'contact manufacturing, quote request, Middlefield Connecticut, machining quote'
+  : 'precision machining, manufacturing, Connecticut';
 
 const cfAnalyticsToken = typeof process !== 'undefined' && process.env.CLOUDFLARE_ANALYTICS_TOKEN ? process.env.CLOUDFLARE_ANALYTICS_TOKEN : '';
 ---
@@ -40,22 +49,42 @@ const cfAnalyticsToken = typeof process !== 'undefined' && process.env.CLOUDFLAR
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
+    <meta name="title" content={title} />
     <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
     <link rel="canonical" href={canonicalURL} />
-    <!-- Open Graph -->
+
+    <!-- Geo Tags for Local SEO -->
+    <meta name="geo.region" content="US-CT" />
+    <meta name="geo.placename" content="Middlefield" />
+    <meta name="geo.position" content="41.518;-72.713" />
+    <meta name="ICBM" content="41.518, -72.713" />
+
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:site_name" content="T.E.T. Mfg. Co., Inc." />
+    <meta property="og:locale" content="en_US" />
+
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <script type="application/ld+json" set:html={JSON.stringify(localBusinessJsonLd)} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Enhanced Structured Data -->
+    <SEOSchemas page={pageType} breadcrumbs={breadcrumbs} />
+
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />

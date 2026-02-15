@@ -1,0 +1,185 @@
+---
+/**
+ * Enhanced SEO schemas for T.E.T. Manufacturing
+ * Includes Organization, LocalBusiness, Services, and BreadcrumbList schemas
+ */
+import { siteConfig } from '../config/site';
+
+interface Props {
+  page?: 'home' | 'services' | 'facilities' | 'quality' | 'contact';
+  breadcrumbs?: Array<{ name: string; url: string }>;
+}
+
+const { page = 'home', breadcrumbs } = Astro.props;
+const siteUrl = Astro.site?.toString() ?? 'https://tetmfg.com';
+
+// Enhanced Organization Schema with Manufacturing focus
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['Organization', 'Manufacturer'],
+  '@id': `${siteUrl}#organization`,
+  name: siteConfig.name,
+  legalName: 'T.E.T. Mfg. Co., Inc.',
+  alternateName: 'T.E.T. Manufacturing',
+  url: siteUrl,
+  logo: `${siteUrl}favicon.svg`,
+  description: 'Precision manufacturing job shop specializing in CNC milling, CNC turning, and large diameter machining up to 60 inches. Serving aerospace, energy production, and elevator industries in Connecticut.',
+  telephone: siteConfig.phonePlaceholder,
+  email: `${siteConfig.emailUser}@${siteConfig.emailDomain}`,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: siteConfig.address.line1,
+    addressLocality: siteConfig.address.city,
+    addressRegion: siteConfig.address.state,
+    postalCode: siteConfig.address.zip,
+    addressCountry: 'US'
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: '41.518', // Approximate coordinates for Middlefield, CT
+    longitude: '-72.713'
+  },
+  areaServed: [
+    {
+      '@type': 'State',
+      name: 'Connecticut'
+    },
+    {
+      '@type': 'Country',
+      name: 'United States'
+    }
+  ],
+  knowsAbout: [
+    'CNC Milling',
+    'CNC Turning',
+    'Precision Machining',
+    'Large Diameter Machining',
+    'Hard Metal Manufacturing',
+    'Aerospace Manufacturing',
+    'Production Runs',
+    'Prototyping',
+    'Custom Machining'
+  ],
+  slogan: siteConfig.tagline,
+  foundingDate: '1960', // Adjust if you know the actual founding date
+  numberOfEmployees: {
+    '@type': 'QuantitativeValue',
+    value: '10-50' // Adjust based on actual size
+  }
+};
+
+// LocalBusiness Schema for local SEO
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': `${siteUrl}#localbusiness`,
+  name: siteConfig.name,
+  image: `${siteUrl}og-image.svg`,
+  url: siteUrl,
+  telephone: siteConfig.phonePlaceholder,
+  email: `${siteConfig.emailUser}@${siteConfig.emailDomain}`,
+  priceRange: '$$',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: siteConfig.address.line1,
+    addressLocality: siteConfig.address.city,
+    addressRegion: siteConfig.address.state,
+    postalCode: siteConfig.address.zip,
+    addressCountry: 'US'
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: '41.518',
+    longitude: '-72.713'
+  },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: '07:00',
+    closes: '17:00'
+  },
+  sameAs: [] // Add social media profiles if available
+};
+
+// Service Schema for manufacturing services
+const servicesOfferedSchema = page === 'services' ? {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: [
+    {
+      '@type': 'Service',
+      name: 'CNC Milling Services',
+      description: 'Precision CNC milling with 5-axis capability, large table sizes up to 33″ × 80″, and high-pressure coolant systems.',
+      provider: {
+        '@id': `${siteUrl}#organization`
+      },
+      areaServed: 'United States',
+      serviceType: 'Manufacturing'
+    },
+    {
+      '@type': 'Service',
+      name: 'CNC Turning Services',
+      description: 'Advanced CNC turning with Y-axis capability, sub spindles, live tooling, and capacity for large diameter work up to 60 inches.',
+      provider: {
+        '@id': `${siteUrl}#organization`
+      },
+      areaServed: 'United States',
+      serviceType: 'Manufacturing'
+    },
+    {
+      '@type': 'Service',
+      name: 'Production Runs',
+      description: 'Repeat orders and volume work with consistent quality, ERP-tracked schedules and costs for reliable delivery.',
+      provider: {
+        '@id': `${siteUrl}#organization`
+      },
+      areaServed: 'United States',
+      serviceType: 'Manufacturing'
+    },
+    {
+      '@type': 'Service',
+      name: 'Prototyping',
+      description: 'Fast-turn prototypes to validate design and process before committing to production with the same quality standards.',
+      provider: {
+        '@id': `${siteUrl}#organization`
+      },
+      areaServed: 'United States',
+      serviceType: 'Manufacturing'
+    },
+    {
+      '@type': 'Service',
+      name: 'Custom One-Off Jobs',
+      description: 'Single parts, tooling, fixtures, or short runs with attention to quality and schedule.',
+      provider: {
+        '@id': `${siteUrl}#organization`
+      },
+      areaServed: 'United States',
+      serviceType: 'Manufacturing'
+    }
+  ]
+} : null;
+
+// Breadcrumb Schema
+const breadcrumbSchema = breadcrumbs ? {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: breadcrumbs.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.name,
+    item: `${siteUrl}${item.url}`
+  }))
+} : null;
+
+// Combine all schemas
+const schemas = [
+  organizationSchema,
+  localBusinessSchema,
+  servicesOfferedSchema,
+  breadcrumbSchema
+].filter(Boolean);
+---
+
+{schemas.map((schema) => (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}

@@ -4,9 +4,14 @@ import Icon from '../../components/icons/Icon.astro';
 ---
 
 <BaseLayout
-  title="Quality — T.E.T. Mfg. Co., Inc."
-  description="Quality department with Zeiss CMM and advanced inspection. Parts right when they leave our plant. ERP integration for traceability and consistency."
+  title="Quality Control & Inspection — Zeiss CMM, ERP Integration | T.E.T. Mfg."
+  description="Advanced quality control with Zeiss coordinate measuring machine (CMM), dedicated inspection department, ERP traceability. Precision measurement ensures parts meet specifications. Connecticut."
   current="/quality/"
+  pageType="quality"
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Quality', url: '/quality/' }
+  ]}
 >
   <section class="industrial-hero">
     <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">

@@ -10,9 +10,14 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${enco
 ---
 
 <BaseLayout
-  title="Contact — T.E.T. Mfg. Co., Inc."
-  description="Contact T.E.T. Mfg. Co., Inc. at 2 Old Indian Trail, Middlefield, CT 06455. Email and phone for quotes and precision machining."
+  title="Contact T.E.T. Manufacturing — Request Quote | Middlefield, CT"
+  description="Contact T.E.T. Mfg. for precision CNC machining quotes. Located at 2 Old Indian Trail, Middlefield, CT 06455. Phone and email for production runs, prototyping, custom jobs."
   current="/contact/"
+  pageType="contact"
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Contact', url: '/contact/' }
+  ]}
 >
   <section class="industrial-hero">
     <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
