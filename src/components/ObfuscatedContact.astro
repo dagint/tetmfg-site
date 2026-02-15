@@ -8,6 +8,7 @@
  * Decodes to mailto:info@tetmfg.com. We use the JS-assembled version in the UI by default.
  */
 import { siteConfig } from '../config/site';
+import Icon from './icons/Icon.astro';
 
 interface Props {
   /** Show email link (assembled as user@domain) */
@@ -25,23 +26,29 @@ const phone = siteConfig.phonePlaceholder;
 
 <div class:list={['flex flex-wrap items-center gap-x-4 gap-y-2 text-sm', className]}>
   {showPhone && (
-    <span id="contact-phone" class="font-medium text-industrial-dark" data-parts={phone}>
-      {/* Rendered by script below */}
-      <span class="opacity-0" aria-hidden="true">—</span>
-    </span>
+    <div class="flex items-center gap-2">
+      <Icon name="phone" class="w-4 h-4 text-industrial-steel" />
+      <span id="contact-phone" class="font-medium text-industrial-dark" data-parts={phone}>
+        {/* Rendered by script below */}
+        <span class="opacity-0" aria-hidden="true">—</span>
+      </span>
+    </div>
   )}
   {showEmail && (
-    <a
-      id="contact-email"
-      href="#"
-      class="font-medium text-industrial-steel underline decoration-industrial-steel/40 hover:decoration-industrial-steel"
-      data-user={user}
-      data-domain={domain}
-      rel="noopener noreferrer"
-    >
-      {/* Rendered by script below */}
-      <span class="opacity-0" aria-hidden="true">—</span>
-    </a>
+    <div class="flex items-center gap-2">
+      <Icon name="envelope" class="w-4 h-4 text-industrial-steel" />
+      <a
+        id="contact-email"
+        href="#"
+        class="font-medium text-industrial-steel underline decoration-industrial-steel/40 hover:decoration-industrial-steel"
+        data-user={user}
+        data-domain={domain}
+        rel="noopener noreferrer"
+      >
+        {/* Rendered by script below */}
+        <span class="opacity-0" aria-hidden="true">—</span>
+      </a>
+    </div>
   )}
 </div>
 
