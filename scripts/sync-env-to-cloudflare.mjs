@@ -1,21 +1,20 @@
 #!/usr/bin/env node
 /**
- * Sync environment variables from .env to Cloudflare Pages
- * Requires: Cloudflare API Token with Pages:Edit permission
- * Usage: CLOUDFLARE_API_TOKEN=your_token node sync-env-to-cloudflare.mjs
+ * Sync environment variables from .env (and .env.local) to Cloudflare Pages
+ * Requires: CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in .env.local (or env)
+ * Usage: node scripts/sync-env-to-cloudflare.mjs
  */
 
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 
-const ACCOUNT_ID = '9d1ece4e51911b8932e654eb8b000f4d';
 const PROJECT_NAME = 'tetmfg-site';
-const ENV_FILE = '.env';
+const LOCAL_ONLY_KEYS = ['CLOUDFLARE_ACCOUNT_ID', 'CLOUDFLARE_API_TOKEN'];
 
-// Parse .env file
+// Parse .env-style file (returns {} if file missing)
 function parseEnvFile(filePath) {
+  if (!existsSync(filePath)) return {};
   const content = readFileSync(filePath, 'utf-8');
   const vars = {};
-
   content.split('\n').forEach(line => {
     if (line.trim().startsWith('#') || !line.trim()) return;
     const [key, ...valueParts] = line.split('=');
@@ -23,30 +22,41 @@ function parseEnvFile(filePath) {
       vars[key.trim()] = valueParts.join('=').trim();
     }
   });
-
   return vars;
 }
 
+// Load .env then .env.local (local overrides), exclude local-only keys from sync
+function loadEnvForSync() {
+  const env = { ...parseEnvFile('.env'), ...parseEnvFile('.env.local') };
+  return Object.fromEntries(
+    Object.entries(env).filter(([k]) => !LOCAL_ONLY_KEYS.includes(k))
+  );
+}
+
 async function main() {
-  const apiToken = process.env.CLOUDFLARE_API_TOKEN;
+  const fromFiles = { ...parseEnvFile('.env'), ...parseEnvFile('.env.local') };
+  const apiToken = process.env.CLOUDFLARE_API_TOKEN ?? fromFiles.CLOUDFLARE_API_TOKEN;
+  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID ?? fromFiles.CLOUDFLARE_ACCOUNT_ID;
 
   if (!apiToken) {
-    console.error('❌ Error: CLOUDFLARE_API_TOKEN environment variable not set\n');
-    console.log('To get an API token:');
-    console.log('1. Go to https://dash.cloudflare.com/profile/api-tokens');
-    console.log('2. Click "Create Token"');
-    console.log('3. Use "Edit Cloudflare Pages" template or create custom token with Pages:Edit permission');
-    console.log('4. Copy the token and run:\n');
-    console.log(`   CLOUDFLARE_API_TOKEN=your_token node sync-env-to-cloudflare.mjs\n`);
+    console.error('❌ Error: CLOUDFLARE_API_TOKEN not set\n');
+    console.log('Set it in .env.local or run with: CLOUDFLARE_API_TOKEN=your_token node scripts/sync-env-to-cloudflare.mjs');
+    console.log('Get a token: https://dash.cloudflare.com/profile/api-tokens (Pages:Edit)\n');
+    process.exit(1);
+  }
+
+  if (!accountId) {
+    console.error('❌ Error: CLOUDFLARE_ACCOUNT_ID not set\n');
+    console.log('Add CLOUDFLARE_ACCOUNT_ID=your_account_id to .env.local (do not commit).');
+    console.log('Find it in Cloudflare Dashboard → any domain → Overview (right sidebar).\n');
     process.exit(1);
   }
 
   console.log('🔄 Syncing environment variables to Cloudflare Pages...\n');
 
-  // Read .env file
-  console.log(`📖 Reading ${ENV_FILE}...`);
-  const envVars = parseEnvFile(ENV_FILE);
-  console.log(`✅ Found ${Object.keys(envVars).length} variables\n`);
+  const envVars = loadEnvForSync();
+  console.log(`📖 Loaded .env + .env.local (excluding local-only keys)`);
+  console.log(`✅ Found ${Object.keys(envVars).length} variables to sync\n`);
 
   // Format for Cloudflare API
   const envVarsFormatted = {};
@@ -55,7 +65,7 @@ async function main() {
   });
 
   // Update Cloudflare Pages project
-  const url = `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/pages/projects/${PROJECT_NAME}`;
+  const url = `https://api.cloudflare.com/client/v4/accounts/${accountId}/pages/projects/${PROJECT_NAME}`;
 
   const payload = {
     deployment_configs: {

@@ -1,33 +1,40 @@
 #!/usr/bin/env node
 /**
- * Sync environment variables from .env file to Cloudflare Pages
- * Usage: node sync-env.mjs
+ * Sync environment variables from .env and .env.local to Cloudflare Pages
+ * Requires: CLOUDFLARE_ACCOUNT_ID in .env.local (or env)
+ * Usage: node scripts/sync-env.mjs
  */
 
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 import { execSync } from 'child_process';
 
-const ACCOUNT_ID = '9d1ece4e51911b8932e654eb8b000f4d';
 const PROJECT_NAME = 'tetmfg-site';
-const ENV_FILE = '.env';
+const LOCAL_ONLY_KEYS = ['CLOUDFLARE_ACCOUNT_ID', 'CLOUDFLARE_API_TOKEN'];
 
-// Read and parse .env file
 function parseEnvFile(filePath) {
+  if (!existsSync(filePath)) return {};
   const content = readFileSync(filePath, 'utf-8');
   const vars = {};
-
   content.split('\n').forEach(line => {
-    // Skip comments and empty lines
     if (line.trim().startsWith('#') || !line.trim()) return;
-
     const [key, ...valueParts] = line.split('=');
     if (key && valueParts.length > 0) {
-      const value = valueParts.join('=').trim();
-      vars[key.trim()] = value;
+      vars[key.trim()] = valueParts.join('=').trim();
     }
   });
-
   return vars;
+}
+
+function loadEnvForSync() {
+  const env = { ...parseEnvFile('.env'), ...parseEnvFile('.env.local') };
+  return Object.fromEntries(
+    Object.entries(env).filter(([k]) => !LOCAL_ONLY_KEYS.includes(k))
+  );
+}
+
+function getAccountId() {
+  const fromFiles = { ...parseEnvFile('.env'), ...parseEnvFile('.env.local') };
+  return process.env.CLOUDFLARE_ACCOUNT_ID ?? fromFiles.CLOUDFLARE_ACCOUNT_ID;
 }
 
 // Get Cloudflare API token from wrangler config
@@ -56,19 +63,23 @@ function formatEnvVars(vars, environment = 'production') {
 }
 
 async function syncToCloudflare() {
+  const accountId = getAccountId();
+  if (!accountId) {
+    console.error('❌ Error: CLOUDFLARE_ACCOUNT_ID not set. Add it to .env.local.\n');
+    process.exit(1);
+  }
+
   console.log('🔄 Syncing environment variables to Cloudflare Pages...\n');
 
-  // Parse .env file
-  console.log(`📖 Reading ${ENV_FILE}...`);
-  const envVars = parseEnvFile(ENV_FILE);
-
+  const envVars = loadEnvForSync();
   const varNames = Object.keys(envVars);
+  console.log(`📖 Loaded .env + .env.local`);
   console.log(`✅ Found ${varNames.length} variables: ${varNames.join(', ')}\n`);
 
   // First, get current project configuration
   console.log('📡 Fetching current project configuration...');
 
-  const getCmd = `npx wrangler pages project list --account-id=${ACCOUNT_ID} --json`;
+  const getCmd = `npx wrangler pages project list --account-id=${accountId} --json`;
 
   try {
     const output = execSync(getCmd, { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] });
@@ -91,8 +102,7 @@ async function syncToCloudflare() {
   console.log('⚙️  Setting environment variables...\n');
 
   // We need to use the Cloudflare API directly
-  // First, let's create a temporary script that uses wrangler's auth
-  const apiUrl = `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/pages/projects/${PROJECT_NAME}`;
+  const apiUrl = `https://api.cloudflare.com/client/v4/accounts/${accountId}/pages/projects/${PROJECT_NAME}`;
 
   // Format the deployment config
   const deploymentConfigs = {
