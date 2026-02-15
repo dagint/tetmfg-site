@@ -2,6 +2,14 @@
 
 Static Astro website for T.E.T. Mfg. Co., Inc. (precision manufacturing job shop). Built for **Cloudflare Pages** with a secure, static-only setup: no server-side code, no admin, no CMS.
 
+---
+
+## 📝 For Content Editors
+
+**Non-technical users:** See **[EDITING_GUIDE.md](./docs/EDITING_GUIDE.md)** for step-by-step instructions on updating services and facilities using GitHub's web interface.
+
+---
+
 ## Tech stack
 
 - **Astro** (latest) with TypeScript
@@ -92,6 +100,83 @@ This is **markdown** body content.
 ```
 
 To add more collections (e.g. capabilities, services as data), define them in `src/content/config.ts` and use `getCollection()` / `getEntry()` in your components or pages.
+
+## Editing Services and Facilities (Non-Technical Users)
+
+Services and facilities data are stored in easy-to-edit JSON files. You can update these files directly on GitHub without needing to code:
+
+### How to Edit via GitHub Web Interface
+
+1. **Navigate to the content files:**
+   - Services: `src/content/services/`
+   - Facilities: `src/content/facilities/`
+
+2. **Click on the file you want to edit** (e.g., `production-runs.json` or `cnc-milling.json`)
+
+3. **Click the pencil icon (Edit this file)** in the top-right of the file view
+
+4. **Make your changes:**
+   - For services: update `title`, `description`, or `icon`
+   - For facilities: update `category`, `description`, or add/remove items from the `items` array
+   - Keep the JSON format intact (quotes, commas, brackets)
+
+5. **Preview your changes** using the "Preview" tab
+
+6. **Commit your changes:**
+   - Scroll down to "Commit changes"
+   - Add a brief description (e.g., "Updated CNC Milling equipment list")
+   - Click "Commit changes"
+
+7. **Cloudflare Pages will automatically rebuild** your site with the new content (takes 1-2 minutes)
+
+### Services Files
+
+Each service is a separate JSON file in `src/content/services/`:
+- `production-runs.json`
+- `prototyping.json`
+- `custom-jobs.json`
+
+**Fields:**
+- `title`: Service name
+- `icon`: Icon name (mill, wrench, clipboard, gear, etc.)
+- `description`: Service description
+- `order`: Display order (1, 2, 3...)
+
+### Facilities Files
+
+Each facility category is a separate JSON file in `src/content/facilities/`:
+- `cnc-milling.json`
+- `cnc-turning.json`
+- `surface-grinding.json`
+- And more...
+
+**Fields:**
+- `category`: Category name (e.g., "CNC Milling")
+- `icon`: Icon name (mill, gear, wrench, caliper, clipboard)
+- `order`: Display order (1-9)
+- `description`: Optional description text
+- `items`: Array of equipment items (can be empty `[]`)
+
+**Example:**
+```json
+{
+  "category": "CNC Milling",
+  "icon": "mill",
+  "order": 1,
+  "items": [
+    "2010 MORI SEIKI NMV 5000 5-Axis, 5 Pallet Vertical",
+    "2009 OKUMA HOWA 761V 30″ × 60″ table"
+  ]
+}
+```
+
+### Adding a New Service or Facility
+
+1. Create a new `.json` file in the appropriate directory
+2. Copy the structure from an existing file
+3. Update the values
+4. Set the `order` field to control where it appears on the page
+5. Commit the file
 
 ## Configuration
 

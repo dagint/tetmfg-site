@@ -1,0 +1,19 @@
+{
+  "category": "CNC Milling",
+  "icon": "mill",
+  "order": 1,
+  "items": [
+    "2023 Haas UMC500SS 5 Axis with HP Coolant",
+    "2022 DoosanDVF5000 5 Axis, 12 pallet with HP Coolant",
+    "2020 DoosanDVF5000 5 Axis with HP Coolant",
+    "2010 MORI SEIKI NMV 5000 5-Axis, 5 Pallet Vertical",
+    "2009 OKUMA HOWA 761V 30″ × 60″ table, 5-axis capability, spindle probe, and HP coolant",
+    "2008 MORI SEIKI DV5100 20″ × 40″ table, 5-axis capability, spindle probe, and HP coolant",
+    "2007 OKUMA HOWA 852V 33″ × 80″ table, 4th axis, spindle probe, and HP coolant",
+    "2001 OKUMA & HOWA 630H Twin pallet, full 4th, 39″ × 33″ × 36″ with HP coolant",
+    "2001 KIWA KNH 400 6 pallet HMC 23″ × 23″ × 20″ 5-axis, and HP coolant",
+    "1999 MORI SEIKI SH500 Three pallet, 12000 rpm spindle, with HP coolant",
+    "1997 MORI SEIKI MH63 Twin pallet, full 4th, 39″ × 33″ × 36″ with HP coolant",
+    "1986 ENSHU VMC330, 6000 rpm spindle, 17″ × 30″ table"
+  ]
+}

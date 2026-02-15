@@ -1,6 +1,10 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Icon from '../../components/icons/Icon.astro';
+
+const services = await getCollection('services');
+const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
 ---
 
 <BaseLayout
@@ -22,33 +26,17 @@ import Icon from '../../components/icons/Icon.astro';
 
   <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
     <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      <article class="industrial-card-with-icon">
-        <div class="icon-wrap">
-          <Icon name="mill" class="w-6 h-6" />
-        </div>
-        <h2 class="text-xl font-bold tracking-tight text-industrial-dark">Production Runs</h2>
-        <p class="mt-2 text-industrial-dark/80">
-          Repeat orders and volume work with consistent quality. Our ERP tracks schedules and costs so we can give you reliable delivery dates and pricing.
-        </p>
-      </article>
-      <article class="industrial-card-with-icon">
-        <div class="icon-wrap">
-          <Icon name="wrench" class="w-6 h-6" />
-        </div>
-        <h2 class="text-xl font-bold tracking-tight text-industrial-dark">Prototyping</h2>
-        <p class="mt-2 text-industrial-dark/80">
-          Fast-turn prototypes to validate design and process before committing to production. Same quality standards and documentation as production runs.
-        </p>
-      </article>
-      <article class="industrial-card-with-icon">
-        <div class="icon-wrap">
-          <Icon name="clipboard" class="w-6 h-6" />
-        </div>
-        <h2 class="text-xl font-bold tracking-tight text-industrial-dark">One-Off & Custom Jobs</h2>
-        <p class="mt-2 text-industrial-dark/80">
-          Single parts, tooling, fixtures, or short runs. We don’t shy away from “one of” work—every job gets the same attention to quality and schedule.
-        </p>
-      </article>
+      {sortedServices.map((service) => (
+        <article class="industrial-card-with-icon">
+          <div class="icon-wrap">
+            <Icon name={service.data.icon} class="w-6 h-6" />
+          </div>
+          <h2 class="text-xl font-bold tracking-tight text-industrial-dark">{service.data.title}</h2>
+          <p class="mt-2 text-industrial-dark/80">
+            {service.data.description}
+          </p>
+        </article>
+      ))}
     </div>
   </section>
 

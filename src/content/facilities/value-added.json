@@ -1,0 +1,11 @@
+{
+  "category": "Value-Added & Subcontracting",
+  "icon": "gear",
+  "order": 9,
+  "description": "We partner with a broad array of subcontractors for plating, grinding, painting, and other secondary operations. You get a single source for machined parts and finished components without managing multiple vendors.",
+  "items": [
+    "Plating and surface treatment",
+    "Grinding (surface and specialty)",
+    "Painting and coating"
+  ]
+}

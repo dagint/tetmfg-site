@@ -1,0 +1,14 @@
+{
+  "category": "CNC Turning",
+  "icon": "gear",
+  "order": 2,
+  "items": [
+    "2025 Mazak 1600M VTL (60\" dia swing) with HP Coolant",
+    "2025 Haas ST-20Y  with HP Coolant",
+    "2022 Mazak Integrex I-200  with HP Coolant",
+    "2007 MORI SEIKI NL-3000Y1250 12″ chuck, Y-axis, 49″ travel, live tooling and HP coolant",
+    "2002 MORI SEIKI SL-303BMC 700 12″ chucker, live tooling and HP coolant",
+    "1999 MORI SEIKI SL65A with 18″ buck & 24″ Kitagawa chuck. 35″ turning capacity.",
+    "1997 MORI SEIKI SL250BMC 8″ chucker with bar feed & live tooling"
+  ]
+}
