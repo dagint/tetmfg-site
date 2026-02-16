@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import Icon from '../../components/icons/Icon.astro';
+
+// Portfolio items with descriptions
+const portfolioItems = [
+  {
+    id: 2,
+    title: 'Large Diameter Pulley/Sheave',
+    description: 'Precision-machined large diameter pulley with multiple grooves for elevator or industrial applications.',
+    industry: 'Elevator/Industrial',
+    image: '/images/portfolio/work-sample-2.jpg',
+  },
+  {
+    id: 3,
+    title: 'Precision Aluminum Rail Component',
+    description: 'Complex aerospace-grade aluminum component featuring tight-tolerance pockets and precision holes.',
+    industry: 'Aerospace',
+    image: '/images/portfolio/work-sample-3.jpg',
+  },
+  {
+    id: 4,
+    title: 'Large Diameter Flange',
+    description: 'Heavy-duty machined flange with precision bolt patterns for large industrial assembly.',
+    industry: 'Energy/Industrial',
+    image: '/images/portfolio/work-sample-4.jpg',
+  },
+  {
+    id: 5,
+    title: 'Extended Length Structural Panel',
+    description: 'Long-form precision machined structural component with multiple pockets and mounting points.',
+    industry: 'Aerospace/Elevator',
+    image: '/images/portfolio/work-sample-5.jpg',
+  },
+  {
+    id: 6,
+    title: 'Turbine Impeller Component',
+    description: 'Complex impeller with angled blades and precision flange, demonstrating advanced 5-axis milling capabilities.',
+    industry: 'Energy/Turbomachinery',
+    image: '/images/portfolio/work-sample-6.jpg',
+  },
+  {
+    id: 7,
+    title: 'Complex Precision Housing',
+    description: 'Multi-axis machined housing component with internal features and precision bore alignments.',
+    industry: 'Industrial Equipment',
+    image: '/images/portfolio/work-sample-7.jpg',
+  },
+  {
+    id: 8,
+    title: 'Aluminum Impeller Disc',
+    description: 'CNC-machined aluminum disc with radial vanes, showcasing our capability for intricate turbine and impeller work.',
+    industry: 'Energy/HVAC',
+    image: '/images/portfolio/work-sample-8.jpg',
+  },
+];
+---
+
+<BaseLayout
+  title="Portfolio — Precision Machined Parts Examples | T.E.T. Manufacturing"
+  description="View examples of precision CNC machined parts from T.E.T. Manufacturing. Large diameter turning up to 60″, complex 5-axis milling, aerospace components, and industrial parts."
+  current="/portfolio/"
+  pageType="portfolio"
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Portfolio', url: '/portfolio/' }
+  ]}
+>
+  <section class="industrial-hero">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <span class="mb-4 flex h-12 w-12 items-center justify-center rounded-sm border border-industrial-steel/40 bg-industrial-steel/20 text-industrial-light/90" aria-hidden="true">
+        <Icon name="gear" class="w-7 h-7" />
+      </span>
+      <h1 class="text-3xl font-bold uppercase tracking-tight sm:text-4xl">Work Portfolio</h1>
+      <p class="mt-4 max-w-2xl font-medium text-industrial-light/90">
+        Examples of precision machined components produced at T.E.T. Manufacturing. From large diameter turning to complex 5-axis milling.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {portfolioItems.map((item) => (
+        <article class="group overflow-hidden rounded-sm border-2 border-industrial-steel/30 bg-white shadow-plate transition-all hover:border-industrial-steel/50 hover:shadow-lg">
+          <div class="aspect-[4/3] overflow-hidden bg-industrial-steel/5">
+            <img
+              src={item.image}
+              alt={item.title}
+              class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+              width="800"
+              height="600"
+            />
+          </div>
+          <div class="p-6">
+            <div class="mb-2 text-xs font-semibold uppercase tracking-wide text-industrial-steel/70">
+              {item.industry}
+            </div>
+            <h3 class="text-lg font-bold text-industrial-dark">
+              {item.title}
+            </h3>
+            <p class="mt-2 text-sm text-industrial-dark/80">
+              {item.description}
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="industrial-section-alt">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <div class="text-center">
+        <h2 class="text-2xl font-bold uppercase tracking-tight text-industrial-dark">
+          Industries We Serve
+        </h2>
+        <p class="mx-auto mt-4 max-w-2xl text-industrial-dark/90">
+          We provide precision machining services to aerospace, energy production, elevator manufacturing, and general industrial sectors.
+        </p>
+        <div class="mt-6 flex flex-wrap justify-center gap-3">
+          <span class="rounded-sm border border-industrial-steel/40 bg-white px-4 py-2 text-sm font-semibold uppercase tracking-wide text-industrial-steel">
+            Aerospace
+          </span>
+          <span class="rounded-sm border border-industrial-steel/40 bg-white px-4 py-2 text-sm font-semibold uppercase tracking-wide text-industrial-steel">
+            Energy Production
+          </span>
+          <span class="rounded-sm border border-industrial-steel/40 bg-white px-4 py-2 text-sm font-semibold uppercase tracking-wide text-industrial-steel">
+            Elevator Systems
+          </span>
+          <span class="rounded-sm border border-industrial-steel/40 bg-white px-4 py-2 text-sm font-semibold uppercase tracking-wide text-industrial-steel">
+            Industrial Equipment
+          </span>
+          <span class="rounded-sm border border-industrial-steel/40 bg-white px-4 py-2 text-sm font-semibold uppercase tracking-wide text-industrial-steel">
+            Turbomachinery
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t-2 border-industrial-steel/50 bg-industrial-dark text-industrial-light">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16 text-center">
+      <p class="text-lg font-medium">Have a challenging project? Let's discuss your requirements.</p>
+      <a href="/contact/" class="industrial-btn mt-4 focus:ring-offset-industrial-dark">
+        Get a quote
+      </a>
+    </div>
+  </section>
+</BaseLayout>
