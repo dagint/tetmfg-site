@@ -7,6 +7,6 @@ export default defineConfig({
   output: 'static',
   site: 'https://tetmfg.com',
   build: {
-    inlineStylesheets: 'auto',
+    inlineStylesheets: 'always',
   },
 });
