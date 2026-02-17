@@ -14,7 +14,7 @@ const DEST_EQUIPMENT = 'public/images/equipment';
 const DEST_PORTFOLIO = 'public/images/portfolio';
 
 // Image optimization settings
-const FULL_SIZE_WIDTH = 1200;
+const FULL_SIZE_WIDTH = 800;
 const THUMB_WIDTH = 400;
 const QUALITY = 85;
 

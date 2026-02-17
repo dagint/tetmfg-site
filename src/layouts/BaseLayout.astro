@@ -2,6 +2,10 @@
 import BaseLayoutWrapper from '../components/BaseLayoutWrapper.astro';
 import SEOSchemas from '../components/SEOSchemas.astro';
 import { siteConfig } from '../config/site';
+import '@fontsource/barlow/400.css';
+import '@fontsource/barlow/500.css';
+import '@fontsource/barlow/600.css';
+import '@fontsource/barlow/700.css';
 import '../styles/global.css';
 
 interface Props {
@@ -84,10 +88,7 @@ const cfAnalyticsToken = typeof process !== 'undefined' && process.env.CLOUDFLAR
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Fonts (self-hosted via @fontsource/barlow) -->
   </head>
   <body>
     {cfAnalyticsToken && (
