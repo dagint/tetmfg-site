@@ -34,7 +34,7 @@ const navItems = [
       </button>
       <ul id="main-nav" class="hidden gap-1 md:flex md:gap-2" role="list">
         {navItems.map(({ href, label }) => {
-          const isCurrent = current === href || (current === undefined && href === '/');
+          const isCurrent = current === href;
           return (
             <li>
               <a
@@ -57,7 +57,7 @@ const navItems = [
   <div id="nav-dropdown" class="hidden border-t border-industrial-gray/20 bg-industrial-white px-4 py-2 md:hidden">
     <ul class="flex flex-col gap-1" role="list">
       {navItems.map(({ href, label }) => {
-        const isCurrent = current === href || (current === undefined && href === '/');
+        const isCurrent = current === href;
         return (
           <li>
             <a
