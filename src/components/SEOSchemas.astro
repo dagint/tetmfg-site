@@ -167,7 +167,7 @@ const breadcrumbSchema = breadcrumbs ? {
     '@type': 'ListItem',
     position: index + 1,
     name: item.name,
-    item: `${siteUrl}${item.url}`
+    item: new URL(item.url, siteUrl).href
   }))
 } : null;
 
