@@ -18,8 +18,11 @@ interface Props {
   pageType?: 'home' | 'services' | 'facilities' | 'quality' | 'contact';
   /** Optional: breadcrumbs for SEO */
   breadcrumbs?: Array<{ name: string; url: string }>;
+  /** Optional: keep this page out of search indexes (e.g. the 404 page) */
+  noindex?: boolean;
 }
 const {
+  noindex = false,
   title,
   description = 'T.E.T. Mfg. Co., Inc. — Precision CNC machining, milling, and turning. Large diameter capability up to 60″. Serving aerospace, energy, and elevator industries in Connecticut.',
   current,
@@ -59,7 +62,7 @@ const cfAnalyticsToken = typeof process !== 'undefined' && process.env.CLOUDFLAR
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
-    <link rel="canonical" href={canonicalURL} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonicalURL} />}
 
     <!-- Geo Tags for Local SEO -->
     <meta name="geo.region" content="US-CT" />

@@ -9,7 +9,7 @@
     "sync-env": "node scripts/sync-env-to-cloudflare.mjs"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.0.0",
+    "@astrojs/sitemap": "^3.7.4",
     "@astrojs/tailwind": "^5.0.0",
     "@fontsource/barlow": "^5.2.8",
     "astro": "^5.0.0",
